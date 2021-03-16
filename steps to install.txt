@@ -1,0 +1,69 @@
+1. to acces eks cluster from workstation
+
+	- aws eks update-kubeconfig --region ap-south-1 --name eks
+
+2. first install all the crds from crds folder
+
+	- kubectl apply -f crds/
+
+3. then we have to install prometheus-operateor folder resources.
+
+  	- kubectl apply -f prometheus-operator
+to check
+	- kubectl get pods -n monitoring
+to check log
+	- kubectl logs -f prometheus prometheus-operator-5597b4855d-mnljf
+
+4. check storage class
+	- kubectl get sc
+
+5. now we have to install prometheus folder resources
+	- kubectl apply -f prometheus
+to check
+	- kubectl get pods -n monitoring
+	- kubectl get svc -n monitoring
+now we can access prometheus to do that, port forward
+	- kubectl -n monitoring port-forward svc/prometheus-operated 9090:9090
+
+
+( note: - kubectl get endpoints -n monitoring
+	- kubectl describe endpoints prometheus-operated -n monitoring
+      	in this PORT value and matchlabels value of endpints has to match with service monitor)
+
+
+6. now we have to install grafana:
+first create id and password for grafana
+	Id :- echo -n "admin" | base64
+	passwd :- echo -n "password123" | base64
+
+now install grafana folder resources 
+		- kubectl apply -f grafana
+to check 	- kubectl get pods -n monitoring
+		- kubectl get svc -n monitoring
+
+now to access port forward grafana: 
+		- kubectl -n monitoring port-forward svc/grafana 3000:3000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
