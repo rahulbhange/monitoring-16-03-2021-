@@ -43,6 +43,8 @@ to check 	- kubectl get pods -n monitoring
 
 now to access port forward grafana: 
 		- kubectl -n monitoring port-forward svc/grafana 3000:3000
+		
+now, add datasource in grafana dashbaoard, i our case its prometheus.
 
 
 
